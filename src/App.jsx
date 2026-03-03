@@ -1,33 +1,32 @@
 import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
 import './App.css'
+import { supabase } from './supabase-client.jsx'
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [newData, setNewData] = useState({name: '', age: ''})
 
+  const handelSubmit = async (e) => {
+    e.preventDefault()
+
+    const { error } = await supabase.from("test").insert(newData).single()
+
+    if (error) {
+      console.log(error)
+    } else {
+      console.log("Data inserted successfully")
+    }
+
+    setNewData({name: '', age: ''})
+  }
   return (
     <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
+      <form onSubmit={handelSubmit}>
+        <label className="form-name" htmlFor="name">Name:</label>
+        <input type="text" id="name" name="name" onChange={(e) => setNewData({...newData, name: e.target.value})}/>
+        <label className="form-age" htmlFor="age">Age:</label>
+        <input type="number" id="age" name="age" onChange={(e) => setNewData({...newData, age: e.target.value})} />
+        <button type="submit">Submit</button>
+      </form>
     </>
   )
 }
