@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import './App.css'
 import { supabase } from './supabase-client.jsx'
-import { BrowserRouter, HashRouter as Router, Routes, Route} from 'react-router-dom'
+import { BrowserRouter, HashRouter as Router, Routes, Route, Link } from 'react-router-dom'
 import History from './components/History.jsx'
 import AddData from './components/addData.jsx'
 
@@ -32,6 +32,8 @@ function App() {
           <input type="number" id="age" name="age" value={newData.age} onChange={(e) => setNewData({...newData, age: e.target.value})} />
           <button type="submit">Submit</button>
         </form>
+        <Link to="/add-data">Add Data</Link>
+        <Link to="/history">History</Link>
         <Routes>
           <Route path="/add-data" element={<AddData />} />
           <Route path="/history" element={<History />} />
