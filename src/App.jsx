@@ -24,7 +24,7 @@ function App() {
 
   return (
     <>
-      <Router basename={import.meta.env.BASE_URL}>
+      <Router>
         <form onSubmit={handelSubmit}>
           <label className="form-name" htmlFor="name">Name:</label>
           <input type="text" id="name" name="name" value={newData.name} onChange={(e) => setNewData({...newData, name: e.target.value})}/>
@@ -33,8 +33,8 @@ function App() {
           <button type="submit">Submit</button>
         </form>
         <Routes>
-          <Route path="add-data" element={<AddData />} />
-          <Route path="history" element={<History />} />
+          <Route path="/add-data" element={<AddData />} />
+          <Route path="/history" element={<History />} />
         </Routes>
       </Router>
     </>
