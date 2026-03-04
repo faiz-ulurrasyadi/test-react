@@ -21,9 +21,12 @@ function App() {
 
     setNewData({name: '', age: ''})
   }
+
+  console.log(import.meta.env.BASE_URL)
+  
   return (
     <>
-      <BrowserRouter basename={import.meta.env.BASE_URL}>
+      <HashRouter basename={import.meta.env.BASE_URL}>
         <form onSubmit={handelSubmit}>
           <label className="form-name" htmlFor="name">Name:</label>
           <input type="text" id="name" name="name" value={newData.name} onChange={(e) => setNewData({...newData, name: e.target.value})}/>
@@ -35,7 +38,7 @@ function App() {
           <Route path="add-data" element={<AddData />} />
           <Route path="history" element={<History />} />
         </Routes>
-      </BrowserRouter>
+      </HashRouter>
     </>
   )
 }
