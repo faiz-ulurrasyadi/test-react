@@ -1,6 +1,9 @@
 import { useState } from 'react'
 import './App.css'
 import { supabase } from './supabase-client.jsx'
+import { BrowserRouter, HashRouter, Routes, Route} from 'react-router-dom'
+import History from './components/History.jsx'
+import AddData from './components/addData.jsx'
 
 function App() {
   const [newData, setNewData] = useState({name: '', age: ''})
@@ -20,13 +23,19 @@ function App() {
   }
   return (
     <>
-      <form onSubmit={handelSubmit}>
-        <label className="form-name" htmlFor="name">Name:</label>
-        <input type="text" id="name" name="name" onChange={(e) => setNewData({...newData, name: e.target.value})}/>
-        <label className="form-age" htmlFor="age">Age:</label>
-        <input type="number" id="age" name="age" onChange={(e) => setNewData({...newData, age: e.target.value})} />
-        <button type="submit">Submit</button>
-      </form>
+      <BrowserRouter basename='/test-react'>
+        <form onSubmit={handelSubmit}>
+          <label className="form-name" htmlFor="name">Name:</label>
+          <input type="text" id="name" name="name" value={newData.name} onChange={(e) => setNewData({...newData, name: e.target.value})}/>
+          <label className="form-age" htmlFor="age">Age:</label>
+          <input type="number" id="age" name="age" value={newData.age} onChange={(e) => setNewData({...newData, age: e.target.value})} />
+          <button type="submit">Submit</button>
+        </form>
+        <Routes>
+          <Route path="/add-data" element={<AddData />} />
+          <Route path="/history" element={<History />} />
+        </Routes>
+      </BrowserRouter>
     </>
   )
 }
